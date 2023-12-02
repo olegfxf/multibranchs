@@ -1,0 +1,29 @@
+
+
+version: '3.7'
+networks:
+ jenkins:
+   name: jenkins
+   
+services:
+ jenkins:
+  image: docker:dind
+  container_name: jenkins-docker
+  privileged: true
+  networks:
+    - jenkins
+  environment:
+    - DOCKER_TLS_CERTDIR=
+  expose:
+    - 2375
+    - 3000
+    - 5000
+  volumes:
+    - jenkins-docker-certs:/certs/client
+    - jenkins-data:/var/jenkins_home
+#  command: --storage-driver=overlay2
+  
+volumes:
+  jenkins-docker-certs:
+  jenkins-data:    
+      
